@@ -22,7 +22,7 @@ if(s<0&e>n-1&s>e)
 import java.util.*;
 class SortSubList 
 {
-	public static ArrayList sortsublist(int[] a,int s,int e,char ch)
+	public static ArrayList<Integer> sortsublist(int[] a,int s,int e,char ch)
 	{
 		//logic
 		ArrayList<Integer> al=new ArrayList<>();
