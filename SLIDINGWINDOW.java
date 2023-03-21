@@ -1,5 +1,5 @@
 import java.util.*;
-class rough
+class SLIDINGWINDOW
 {
   public static void main(String[] args) {
     Scanner s=new Scanner(System.in);
