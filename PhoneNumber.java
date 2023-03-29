@@ -23,7 +23,7 @@ Examples
 653-879-8447
 
 All inputs will be formatted as a string representing a proper phone 
-number in the format XXX-XXX-XXXX or (XXX)XXX-XXXX, using numbers and 
+number in the format , using numbers and 
 capital letters.
 */
 import java.util.*;

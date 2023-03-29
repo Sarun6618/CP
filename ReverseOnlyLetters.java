@@ -40,5 +40,6 @@ class ReverseOnlyLetters
         }
         String st=a.toString();
         System.out.println(st);
+        s.close();
     }
 }
