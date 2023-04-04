@@ -1,6 +1,7 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+// import java.io.BufferedReader;
+// import java.io.IOException;
+// import java.io.InputStreamReader;
+import java.io.*;
 // import java.util.*;
 class SegmentTree {
     public static int[] constructST(int st[],int a[],int si,int l,int u)

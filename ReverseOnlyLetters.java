@@ -38,7 +38,7 @@ class ReverseOnlyLetters
                 i++;j--;
             }
         }
-        String st=a.toString();
+        String st=new String(a);
         System.out.println(st);
         s.close();
     }
