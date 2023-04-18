@@ -32,6 +32,7 @@ class KthMissingNo
         for(int i=0;i<n;i++) a[i]=s.nextInt();
         int k=s.nextInt();
         System.out.println(findKthMissing(a,n,k));
+        s.close();
     }
     public static int findKthMissing(int[] a,int n,int k)
     {

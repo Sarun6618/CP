@@ -43,6 +43,7 @@ class LuckyNumber
             for(int j=0;j<m;j++) a[i][j]=s.nextInt();
         }
         System.out.println(Lucky(a,n,m));
+        s.close();
     }
     public static int Lucky(int[][] a,int n,int m)
     {
