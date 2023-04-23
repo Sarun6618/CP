@@ -44,7 +44,7 @@ class LList
     
     boolean isPalindrome()
     {
-        Stack<Integer>s=new Stack<>();
+        java.util.Stack<Integer>s=new java.util.Stack<>();
         node fp=head,sp=head;
         while(sp!=null)
 		{
