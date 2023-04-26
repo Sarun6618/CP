@@ -118,5 +118,6 @@ public class ArticulationPoints
 			g.addEdge(start, end);
         }
         g.AP();
+        s.close();
 	}
 }

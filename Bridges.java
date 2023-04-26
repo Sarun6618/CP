@@ -89,5 +89,6 @@ public class Bridges {
 		
 		System.out.println("Bridges in the graph:");
         g.bridge();
+        s.close();
     }
 }
