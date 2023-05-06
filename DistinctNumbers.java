@@ -56,9 +56,8 @@ class DistinctNumbers
 		//read size k
 		int k=s.nextInt();
 
-		int ans[]=new int[n-k+1];
 
-		ans=distinct(a,k);
+		int[] ans=distinct(a,k);
 
 		for(int i=0;i<ans.length;i++)
 			System.out.print(ans[i]+" ");
