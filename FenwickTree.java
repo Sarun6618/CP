@@ -74,7 +74,6 @@ public class FenwickTree
 		//logic
 		return getSum(bit,j)-getSum(bit,i-1);
 	}
-     
     public static void main(String args[])
 	{
         int input[] = {3,2,-1,6,5,4,-3,3,7,2,3};

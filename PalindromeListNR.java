@@ -37,11 +37,7 @@ class LList
 			temp=temp.next;
 		}
 		System.out.println();
-	}
-
-	
- 
-    
+	}   
     boolean isPalindrome()
     {
         java.util.Stack<Integer>s=new java.util.Stack<>();

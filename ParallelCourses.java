@@ -23,78 +23,143 @@ In the second semester, you can take course 4.
 In the third semester, you can take course 1.
 In the fourth semester, you can take course 5.
 
-*/
+// */
+// import java.util.*;
+// import java.util.LinkedList;
+
+// public class ParallelCourses 
+// {
+//     public int minimumSemesters(int numCourses, int[][] prerequisites,int maxCourses) 
+// 	{
+//         // create an adjacency list to represent the graph
+// 		int graph[][]=new int[numCourses][numCourses];
+// 		int[] indegree = new int[numCourses];
+
+//         // populate the adjacency list using the prerequisites array
+//         for(int pre[]:prerequisites)
+//         {
+//             int u=pre[0];
+//             int v=pre[1];
+//             graph[u][v]=1;
+//             indegree[v]++;
+//         }
+        
+
+//         // Perform a topological sort to find the order in which the courses should be taken
+//         Queue<Integer> queue = new LinkedList<>();
+//         for(int i=0;i<numCourses;i++)
+//         {
+//             if(indegree[i]==0) queue.offer(i);
+//         }
+        
+//         int semesters = 0;
+//         int coursesTaken = 0;
+//         //logic
+//         while(!queue.isEmpty())
+//         {
+//             int cts=Math.min(queue.size(),maxCourses);
+//             for(int i=0;i<cts;i++)
+//             {
+//                 int u=queue.poll();
+//                 coursesTaken++;
+//                 for(int v=0;v<numCourses;v++)
+//                 {
+//                     if(graph[u][v]==1 && --indegree[v]==0) queue.offer(v);
+//                 }
+//             }
+//             semesters++;
+//         }
+
+//         if (coursesTaken != numCourses) {
+//             return -1; // cannot complete all courses
+//         }
+
+//         return semesters;
+//     }
+
+// 	public static void main(String[] args) 
+// 	{
+// 		Scanner s=new Scanner(System.in);
+// 		int numCourses=s.nextInt();
+// 		int c=s.nextInt();
+// 		int prerequisites[][]=new int[c][2];
+// 		for(int i=0;i<c;i++)
+// 		{
+// 			for(int j=0;j<2;j++)
+// 			{
+// 				prerequisites[i][j]=s.nextInt();
+// 			}
+// 		}
+// 		int maxCourses=s.nextInt();
+		
+//         ParallelCourses p=new ParallelCourses();
+
+//         System.out.println(p.minimumSemesters(numCourses,prerequisites,maxCourses));
+//         s.close(); 
+// 	}
+// }
 import java.util.*;
 import java.util.LinkedList;
 
-public class ParallelCourses 
-{
-    public int minimumSemesters(int numCourses, int[][] prerequisites,int maxCourses) 
-	{
-        // create an adjacency list to represent the graph
-		int graph[][]=new int[numCourses][numCourses];
-		int[] indegree = new int[numCourses];
+public class ParallelCourses {
 
-        // populate the adjacency list using the prerequisites array
-        for(int pre[]:prerequisites)
-        {
-            int u=pre[0];
-            int v=pre[1];
-            graph[u][v]=1;
+    public static int minimumSemesters(int numCourses, int[][] prerequisites, int maxCourses) {
+
+        // Create an adjacency list to represent the graph.
+        int[][] graph = new int[numCourses][numCourses];
+        int[] indegree = new int[numCourses];
+
+        // Populate the adjacency list using the prerequisites array.
+        for (int[] pre : prerequisites) {
+            int u = pre[0];
+            int v = pre[1];
+            graph[u][v] = 1;
             indegree[v]++;
         }
-        
 
-        // Perform a topological sort to find the order in which the courses should be taken
+        // Perform a topological sort to find the order in which the courses should be taken.
         Queue<Integer> queue = new LinkedList<>();
-        for(int i=0;i<numCourses;i++)
-        {
-            if(indegree[i]==0) queue.offer(i);
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) {
+                queue.add(i);
+            }
         }
-        
+
         int semesters = 0;
         int coursesTaken = 0;
-        //logic
-        while(!queue.isEmpty())
-        {
-            int cts=Math.min(queue.size(),maxCourses);
-            for(int i=0;i<cts;i++)
-            {
-                int u=queue.poll();
+
+        while (!queue.isEmpty()) {
+            int cts = Math.min(queue.size(), maxCourses);
+            for (int i = 0; i < cts; i++) {
+                int u = queue.poll();
                 coursesTaken++;
-                for(int v=0;v<numCourses;v++)
-                {
-                    if(graph[u][v]==1 && --indegree[v]==0) queue.offer(v);
+                for (int v = 0; v < numCourses; v++) {
+                    if (graph[u][v] == 1 && --indegree[v] == 0) {
+                        queue.add(v);
+                    }
                 }
             }
             semesters++;
         }
 
-        if (coursesTaken != numCourses) {
-            return -1; // cannot complete all courses
-        }
-
-        return semesters;
+        return coursesTaken == numCourses ? semesters : -1;
     }
 
-	public static void main(String[] args) 
-	{
-		Scanner s=new Scanner(System.in);
-		int numCourses=s.nextInt();
-		int c=s.nextInt();
-		int prerequisites[][]=new int[c][2];
-		for(int i=0;i<c;i++)
-		{
-			for(int j=0;j<2;j++)
-			{
-				prerequisites[i][j]=s.nextInt();
-			}
-		}
-		int maxCourses=s.nextInt();
-		
-        ParallelCourses p=new ParallelCourses();
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int numCourses = s.nextInt();
+        int c = s.nextInt();
+        int[][] prerequisites = new int[c][2];
+        for (int i = 0; i < c; i++) {
+            for (int j = 0; j < 2; j++) {
+                prerequisites[i][j] = s.nextInt();
+            }
+        }
+        int maxCourses = s.nextInt();
 
-        System.out.println(p.minimumSemesters(numCourses,prerequisites,maxCourses));
-        s.close(); 
-	}
+        // ParallelCourses p = new ParallelCourses();
+
+        System.out.println(minimumSemesters(numCourses, prerequisites, maxCourses));
+        s.close();
+    }
 }

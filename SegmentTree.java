@@ -1,47 +1,77 @@
-// import java.io.BufferedReader;
-// import java.io.IOException;
-// import java.io.InputStreamReader;
-import java.io.*;
-// import java.util.*;
 class SegmentTree {
-    public static int[] constructST(int st[],int a[],int si,int l,int u)
-    {
-        if(l==u)
-        {
-            st[si]=a[l];
-            return st;
-        }
-        int mid=(l+u)/2;
-        st=constructST(st,a,2*si+1,l,mid);
-        st=constructST(st,a,2*si+2,mid+1,u);
-        st[si] = st[2 * si + 1] + st[2 * si + 2];
-        return st;
-    }
-    // public static int getSum(int st[],int si,int sl,int su,int l,int u)
-    // {
-    //     if(l<=sl & u>=su) return ;
+    private int[] tree;
+    private int[] nums;
+    private int n;
 
-    // }
-    public static void main(String[] args) throws IOException {
-        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter no of elements:");
-        int n=Integer.parseInt(br.readLine()),a[]=new int[n];
-        System.out.println("Enter elements of array:");
-        for(int i=0;i<n;i++) 
-        a[i]=Integer.parseInt(br.readLine());
-        System.out.println("Enter Segment starting index:");
-        int si=Integer.parseInt(br.readLine());
-        System.out.println("Enter l and u values:");
-        int l=Integer.parseInt(br.readLine()),u=Integer.parseInt(br.readLine());
-        int x = (int) (Math.ceil(Math.log(n+1) / Math.log(2)));
-        // System.out.println(x);
-        int max_size = 2 * (int) Math.pow(2, x)-1;
-        // System.out.println(max_size);
-        int[] st = new int[max_size];
-        st = constructST(st,a,si,l,u);
-        for (int i = 0; i < max_size; i++) {
-            System.out.print(st[i] + " ");
+    public SegmentTree(int[] nums) {
+        this.nums = nums;
+        this.n = nums.length;
+        int height = (int) Math.ceil(Math.log(n) / Math.log(2));
+        int maxSize = 2 * (int) Math.pow(2, height) - 1;
+        this.tree = new int[maxSize];
+        buildSegmentTree(0, 0, n - 1);
+    }
+
+    private int buildSegmentTree(int treeIndex, int left, int right) {
+        if (left == right) {
+            tree[treeIndex] = nums[left];
+            return tree[treeIndex];
         }
-        System.out.println();
+
+        int mid = left + (right - left) / 2;
+        int leftSum = buildSegmentTree(2 * treeIndex + 1, left, mid);
+        int rightSum = buildSegmentTree(2 * treeIndex + 2, mid + 1, right);
+        tree[treeIndex] = leftSum + rightSum;
+        // System.out.println(tree[treeIndex]);
+        return tree[treeIndex];
+    }
+
+    public void update(int index, int newValue) {
+        int diff = newValue - nums[index];
+        nums[index] = newValue;
+        updateSegmentTree(0, 0, n - 1, index, diff);
+    }
+
+    private void updateSegmentTree(int treeIndex, int left, int right, int index, int diff) {
+        if (index < left || index > right) {
+            return;
+        }
+
+        tree[treeIndex] += diff;
+        if (left != right) {
+            int mid = left + (right - left) / 2;
+            updateSegmentTree(2 * treeIndex + 1, left, mid, index, diff);
+            updateSegmentTree(2 * treeIndex + 2, mid + 1, right, index, diff);
+        }
+    }
+
+    public int sumRange(int left, int right) {
+        return querySegmentTree(0, 0, n - 1, left, right);
+    }
+
+    private int querySegmentTree(int treeIndex, int left, int right, int queryLeft, int queryRight) {
+        if (queryLeft > right || queryRight < left) {
+            return 0;
+        }
+
+        if (queryLeft <= left && queryRight >= right) {
+            return tree[treeIndex];
+        }
+
+        int mid = left + (right - left) / 2;
+        int leftSum = querySegmentTree(2 * treeIndex + 1, left, mid, queryLeft, queryRight);
+        int rightSum = querySegmentTree(2 * treeIndex + 2, mid + 1, right, queryLeft, queryRight);
+        return leftSum + rightSum;
+    }
+    public static void main(String[] args) {
+        int[] nums = {1, 3, 5, 7, 9, 11};
+
+        SegmentTree segmentTree = new SegmentTree(nums);
+        System.out.println("Sum of elements in range [1, 3]: " + segmentTree.sumRange(1, 3));
+
+        segmentTree.update(2, 6);
+
+        System.out.println("Updated sum of elements in range [1, 3]: " + segmentTree.sumRange(1, 3));
     }
 }
+

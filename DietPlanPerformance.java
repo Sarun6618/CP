@@ -29,7 +29,6 @@ class DietPlanPerformance
 		    {
 		        points--;
 		    }
-
 		}
 		return points;
 	}
